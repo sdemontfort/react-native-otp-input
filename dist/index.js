@@ -105,7 +105,7 @@ export default class OTPInputView extends Component {
             }
         };
         this.focusField = (index) => {
-            if (index < this.fields.length) {
+            if (index < this.fields.length && this.fields[index]) {
                 this.fields[index].focus();
                 this.setState({
                     selectedIndex: index
@@ -157,7 +157,10 @@ export default class OTPInputView extends Component {
         this.copyCodeFromClipBoardOnAndroid();
         this.bringUpKeyBoardIfNeeded();
         // Fixes focus issues for some reason.
-        // this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.handleKeyboardDidHide)
+        setTimeout(() => {
+            this.bringUpKeyBoardIfNeeded();
+        }, 0);
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.handleKeyboardDidHide);
     }
     componentWillUnmount() {
         var _a;
